@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBTI 검사 · 준비</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="center">
+  <main class="card">
+    <p class="kicker">검사 안내</p>
+    <h1>검사를 시작하기 전에</h1>
+    <p class="lead">
+      MBTI는 성격을 4가지 기준으로 나누어 16가지 유형으로 설명하는 검사입니다.
+      에너지 방향(E/I), 인식 방식(S/N), 판단 기준(T/F), 생활 양식(J/P)에
+      정체성(-A/-T)을 더해 나의 성향을 알려드립니다.
+    </p>
+
+    <ul class="info-list">
+      <li>총 <b>20문항</b>이며, 약 2~3분이면 충분합니다.</li>
+      <li>정답은 없으니 떠오르는 대로 <b>솔직하게</b> 답해 주세요.</li>
+      <li>결과에서 유형 설명과 <b>성향별 그래프</b>를 보여드립니다.</li>
+    </ul>
+
+    <a class="btn" href="{{ url_for('test') }}">검사 시작</a>
+  </main>
+</body>
+</html>

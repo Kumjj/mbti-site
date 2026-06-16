@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBTI 검사 · 로그인</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="center">
+  <main class="card login-card">
+    <p class="kicker">E/I · S/N · T/F · J/P</p>
+    <h1>MBTI 성격유형 검사</h1>
+    <p class="subtitle">로그인 후 검사를 시작합니다.</p>
+
+    <form method="post" class="form">
+      <label class="field">
+        <span>아이디</span>
+        <input type="text" name="user_id" placeholder="아이디를 입력하세요" required autofocus>
+      </label>
+      <label class="field">
+        <span>비밀번호</span>
+        <input type="password" name="password" placeholder="비밀번호를 입력하세요" required>
+      </label>
+      <button type="submit" class="btn">로그인</button>
+    </form>
+
+    <!-- 로그인 실패 시 메시지만 하단에 표시 -->
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+  </main>
+</body>
+</html>

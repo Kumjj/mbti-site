@@ -1,0 +1,8 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+server.out.log
+server.err.log
+.env
+.env.*
