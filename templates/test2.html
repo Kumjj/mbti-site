@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBTI 검사 · 문항</title>
+  <title>MBTI 검사 · 문항 2</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <main class="card test-card">
     <h1 class="test-title">성격유형 검사</h1>
-    <p class="subtitle">1~10번 문항입니다. 각 문항에서 가장 가까운 항목을 선택해 주세요.</p>
+    <p class="subtitle">11~20번 문항입니다. 모두 선택하면 결과를 확인할 수 있습니다.</p>
 
-    <!-- 제출하면 11~20번 문항 페이지로 이동한다 -->
-    <form action="{{ url_for('test2') }}" method="post">
+    <!-- 1페이지 답변을 hidden input으로 함께 제출한다 -->
+    <form action="{{ url_for('result') }}" method="post">
+      {% for name, value in first_answers %}
+      <input type="hidden" name="{{ name }}" value="{{ value }}">
+      {% endfor %}
+
       {% for q in questions %}
       <div class="q-card">
         <p class="q-text"><span class="q-num">{{ start_index + loop.index }}</span>{{ q.text }}</p>
@@ -30,7 +34,7 @@
       </div>
       {% endfor %}
 
-      <button type="submit" class="btn">다음</button>
+      <button type="submit" class="btn">결과 보기</button>
     </form>
   </main>
 </body>

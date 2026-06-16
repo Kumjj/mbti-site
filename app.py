@@ -122,8 +122,36 @@ def main():
 
 @app.route("/test")
 def test():
-    # 검사 지문 화면 (질문 20개를 템플릿으로 넘겨 반복 출력)
-    return render_template("test.html", questions=QUESTIONS, options=OPTIONS)
+    # 검사 지문 1페이지 (1~10번)
+    return render_template(
+        "test.html",
+        questions=QUESTIONS[:10],
+        options=OPTIONS,
+        start_index=0,
+    )
+
+
+@app.route("/test2", methods=["GET", "POST"])
+def test2():
+    # 주소창으로 바로 들어오면 1페이지부터 다시 시작한다.
+    if request.method == "GET":
+        return redirect(url_for("test"))
+
+    first_answers = []
+    for q in QUESTIONS[:10]:
+        value = request.form.get(q["name"])
+        if value is None:
+            return redirect(url_for("test"))
+        first_answers.append((q["name"], value))
+
+    # 검사 지문 2페이지 (11~20번), 1페이지 답변은 hidden input으로 같이 넘긴다.
+    return render_template(
+        "test2.html",
+        questions=QUESTIONS[10:],
+        options=OPTIONS,
+        start_index=10,
+        first_answers=first_answers,
+    )
 
 
 @app.route("/result", methods=["POST"])
