@@ -48,7 +48,7 @@ QUESTIONS = [
     {"name": "identity4", "text": "스트레스 상황에서도 비교적 침착함을 유지한다."},
 ]
 
-TYPE_INFO = {
+BASE_TYPE_INFO = {
     "ISTJ": {"nick": "청렴결백한 논리주의자", "desc": "현실적이고 책임감이 강하며, 맡은 일을 끝까지 해내는 유형입니다."},
     "ISFJ": {"nick": "용감한 수호자",         "desc": "조용하지만 헌신적이며, 주변 사람을 성실하게 챙기는 유형입니다."},
     "INFJ": {"nick": "선의의 옹호자",         "desc": "깊은 통찰력으로 사람과 세상을 이해하려는 이상주의 유형입니다."},
@@ -65,6 +65,16 @@ TYPE_INFO = {
     "ESFJ": {"nick": "사교적인 외교관",       "desc": "협력적이며, 사람들을 챙기고 화합을 이끄는 유형입니다."},
     "ENFJ": {"nick": "정의로운 사회운동가",    "desc": "설득력 있는 리더십으로 사람들을 이끌고 성장시키는 유형입니다."},
     "ENTJ": {"nick": "대담한 통솔자",         "desc": "목표 지향적이고 결단력 있는 타고난 통솔자 유형입니다."},
+}
+
+IDENTITY_INFO = {
+    "A": ("확신형", "자기 확신이 높고 스트레스 상황에서도 비교적 침착하게 대응합니다."),
+    "T": ("신중형", "스스로를 세심하게 돌아보며 더 나은 결과를 위해 꾸준히 개선합니다."),
+}
+
+TYPE_INFO = {
+    f"{mbti}-{identity}": {"nick": f"{info['nick']} · {trait[0]}", "desc": f"{info['desc']} {trait[1]}"}
+    for mbti, info in BASE_TYPE_INFO.items() for identity, trait in IDENTITY_INFO.items()
 }
 
 
@@ -136,7 +146,7 @@ def result():
         rows.append({"label": label, "letter": letter, "strength": strength})
 
     mbti = "".join(letters[:4]) + "-" + letters[4]
-    info = TYPE_INFO[mbti[:4]]
+    info = TYPE_INFO[mbti]
     return render_template("result.html", mbti=mbti, info=info, rows=rows)
 
 
