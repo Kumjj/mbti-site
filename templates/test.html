@@ -1,37 +1,39 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBTI 검사 · 문항</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <main class="card test-card">
-    <h1 class="test-title">성격유형 검사</h1>
-    <p class="subtitle">1~10번 문항입니다. 각 문항에서 가장 가까운 항목을 선택해 주세요.</p>
+{% extends "base.html" %}
 
-    <!-- 제출하면 11~20번 문항 페이지로 이동한다 -->
-    <form action="{{ url_for('test2') }}" method="post">
-      {% for q in questions %}
-      <div class="q-card">
-        <p class="q-text"><span class="q-num">{{ start_index + loop.index }}</span>{{ q.text }}</p>
+{% block title %}문항{% if page == 2 %} 2{% endif %}{% endblock %}
 
-        <div class="opts">
-          <span class="opt-label left">매우<br>그렇다</span>
-          {% for opt in options %}
-          <label class="opt {{ opt.cls }}">
-            <input type="radio" name="{{ q.name }}" value="{{ opt.value }}" required>
-            <span class="circle"></span>
-          </label>
-          {% endfor %}
-          <span class="opt-label right">전혀<br>아니다</span>
-        </div>
+{% block content %}
+<main class="card test-card">
+  <h1 class="test-title">성격유형 검사</h1>
+  <p class="subtitle">
+    {{ "1~10번 문항입니다. 각 문항에서 가장 가까운 항목을 선택해 주세요."
+       if page == 1 else
+       "11~20번 문항입니다. 모두 선택하면 결과를 확인할 수 있습니다." }}
+  </p>
+
+  <form action="{{ url_for('test2') if page == 1 else url_for('result') }}" method="post">
+    {% for name, value in answers %}
+    <input type="hidden" name="{{ name }}" value="{{ value }}">
+    {% endfor %}
+
+    {% for q in questions %}
+    <div class="q-card">
+      <p class="q-text"><span class="q-num">{{ (page - 1) * 10 + loop.index }}</span>{{ q.text }}</p>
+
+      <div class="opts">
+        <span class="opt-label left">매우<br>그렇다</span>
+        {% for opt in options %}
+        <label class="opt {{ opt.cls }}">
+          <input type="radio" name="{{ q.name }}" value="{{ opt.value }}" required>
+          <span class="circle"></span>
+        </label>
+        {% endfor %}
+        <span class="opt-label right">전혀<br>아니다</span>
       </div>
-      {% endfor %}
+    </div>
+    {% endfor %}
 
-      <button type="submit" class="btn">다음</button>
-    </form>
-  </main>
-</body>
-</html>
+    <button type="submit" class="btn">{{ "다음" if page == 1 else "결과 보기" }}</button>
+  </form>
+</main>
+{% endblock %}

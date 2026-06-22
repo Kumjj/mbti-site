@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBTI 검사 · {% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body{% block body_class %}{% endblock %}>
+  {% if session.user_id %}
+  <div class="session-bar">
+    <span>{{ session.user_id }}님</span>
+    <a class="btn logout-btn" href="{{ url_for('logout') }}">로그아웃</a>
+  </div>
+  {% endif %}
+  {% block content %}{% endblock %}
+</body>
+</html>

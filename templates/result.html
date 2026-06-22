@@ -1,37 +1,31 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MBTI 검사 · 결과</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body class="center">
-  <main class="card result-card">
-    <!-- 큰 MBTI 코드(도장) + 별명 -->
-    <div class="type-hero">
-      <p class="kicker">검사 결과</p>
-      <div class="type-name">{{ mbti }}</div>
-      <div class="type-nick">{{ info.nick }}</div>
-    </div>
+{% extends "base.html" %}
 
-    <p class="result-msg">당신의 성격은 <b>{{ mbti }}</b> 입니다.</p>
-    <p class="type-desc">{{ info.desc }}</p>
+{% block title %}결과{% endblock %}
+{% block body_class %} class="center"{% endblock %}
 
-    <!-- 성향별 수치 결과 (게이지 바) -->
-    <div class="dims">
-      {% for r in rows %}
-      <div class="dim-row">
-        <div class="dim-top">
-          <span><b class="dim-letter">{{ r.letter }}</b> 성향 · {{ r.label }}</span>
-          <span class="dim-pct">{{ r.strength }}%</span>
-        </div>
-        <div class="bar"><i style="width: {{ r.strength }}%"></i></div>
+{% block content %}
+<main class="card result-card">
+  <div class="type-hero">
+    <p class="kicker">검사 결과</p>
+    <div class="type-name">{{ mbti }}</div>
+    <div class="type-nick">{{ info.nick }}</div>
+  </div>
+
+  <p class="result-msg">당신의 성격은 <b>{{ mbti }}</b> 입니다.</p>
+  <p class="type-desc">{{ info.desc }}</p>
+
+  <div class="dims">
+    {% for r in rows %}
+    <div class="dim-row">
+      <div class="dim-top">
+        <span><b class="dim-letter">{{ r.letter }}</b> 성향 · {{ r.label }}</span>
+        <span class="dim-pct">{{ r.strength }}%</span>
       </div>
-      {% endfor %}
+      <div class="bar"><i style="width: {{ r.strength }}%"></i></div>
     </div>
+    {% endfor %}
+  </div>
 
-    <a class="btn" href="{{ url_for('main') }}">다시 검사하기</a>
-  </main>
-</body>
-</html>
+  <a class="btn" href="{{ url_for('main') }}">다시 검사하기</a>
+</main>
+{% endblock %}

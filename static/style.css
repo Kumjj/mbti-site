@@ -35,6 +35,18 @@ body {
 
 body.center { display: flex; align-items: center; justify-content: center; }
 
+.session-bar {
+  position: fixed;
+  z-index: 10;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .card {
   position: relative;
   width: 100%;
@@ -102,6 +114,7 @@ h1 {
 }
 .btn:hover { background: var(--navy-d); transform: translate(1px, 1px); box-shadow: 3px 3px 0 var(--ink); }
 .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); }
+.logout-btn { width: auto; margin: 0; padding: 7px 12px; font-size: 13px; }
 
 .form { display: flex; flex-direction: column; gap: 18px; }
 
